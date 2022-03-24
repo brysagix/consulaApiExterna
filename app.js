@@ -6,6 +6,7 @@ const mysql = require('mysql2/promise');
 const port = 3001;
 const bluebird = require('bluebird');
 const e = require('express');
+const { response } = require('express');
 
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
@@ -15,12 +16,11 @@ app.use(cors({ origin: true }))
 app.set('port',process.env.PORT || port)
 
 
-
 app.get('/geti', async (req, res) => {
-
     const resultado =  await fetch('https://api.github.com/users/github');
-    await res.json(resultado)
-    console.log(resultado);
+    const data = await resultado.json();
+    console.log(data);
+    res.json(data)
   })
 
 
